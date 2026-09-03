@@ -79,14 +79,23 @@ app.get('/api/places/search', async (req, res) => {
   res.json({ source: 'demo_simulation', results: simulatedResults });
 });
 
-// Import discovered places into lead database
-app.post('/api/places/import', (req, res) => {
+// Import discovered places into lead database (with automatic verification pipeline)
+app.post('/api/places/import', async (req, res) => {
   const { businesses } = req.body;
   if (!Array.isArray(businesses)) {
     return res.status(400).json({ error: 'Expected array of businesses' });
   }
 
-  const savedList = businesses.map(b => db.saveBusiness(b));
+  const savedList = [];
+  for (const b of businesses) {
+    const saved = db.saveBusiness(b);
+    // Auto-run verification checks if missing website
+    if (saved.confidence_status === 'unverified' || !saved.google_website_field) {
+      await runVerificationPipeline(saved.id);
+    }
+    savedList.push(db.getBusinessById(saved.id));
+  }
+
   res.json({ success: true, count: savedList.length, saved: savedList });
 });
 
