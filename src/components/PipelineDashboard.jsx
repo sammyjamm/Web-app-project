@@ -302,7 +302,9 @@ export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
                         >
                           <Trash2 size={14} />
                         </button>
-                    </tr>
+                      </div>
+                    </td>
+                  </tr>
                   );
                 })
               )}
