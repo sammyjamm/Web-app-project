@@ -245,10 +245,12 @@ export function DiscoveryModule({ onLeadsImported }) {
                 </div>
               </div>
             </div>
-            </div>
-          </>
-        );
-      })()}
+          );
+        })}
+      </div>
+    </>
+  );
+})()}
     </div>
   );
 }
