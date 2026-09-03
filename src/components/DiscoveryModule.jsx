@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, PlusCircle, CheckCircle, AlertTriangle, Building, Globe, MapPin, Phone, Star, Navigation } from 'lucide-react';
+import { Search, PlusCircle, CheckCircle, AlertTriangle, Building, Globe, MapPin, Phone, Star, Navigation, ExternalLink, Clock, Bug } from 'lucide-react';
 
 export function DiscoveryModule({ onLeadsImported }) {
   const [city, setCity] = useState('Near Me');
@@ -9,6 +9,8 @@ export function DiscoveryModule({ onLeadsImported }) {
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [importedStatus, setImportedStatus] = useState(null);
   const [hideWithWebsite, setHideWithWebsite] = useState(true);
+  const [rawResponse, setRawResponse] = useState(null);
+  const [showDebugConsole, setShowDebugConsole] = useState(false);
 
   const handleDetectLocation = () => {
     if (navigator.geolocation) {
@@ -33,6 +35,7 @@ export function DiscoveryModule({ onLeadsImported }) {
       const res = await fetch(`/api/places/search?city=${encodeURIComponent(city)}&category=${encodeURIComponent(category)}`);
       const data = await res.json();
       setResults(data.results || []);
+      setRawResponse(data.raw_response || data);
       
       // Auto select items missing website
       const autoSelected = new Set(
@@ -193,64 +196,113 @@ export function DiscoveryModule({ onLeadsImported }) {
               {displayedResults.map((item) => {
                 const isMissingWebsite = !item.google_website_field;
                 const isChecked = selectedIds.has(item.google_place_id);
+                const mapsUrl = item.google_maps_url || `https://www.google.com/maps/place/?q=place_id:${item.google_place_id}`;
 
-          return (
-            <div
-              key={item.google_place_id}
-              className="card"
-              style={{
-                borderColor: isChecked ? 'var(--accent-blue)' : 'var(--border-color)',
-                background: isChecked ? 'rgba(30, 41, 59, 0.95)' : 'var(--bg-card)',
-                cursor: 'pointer'
-              }}
-              onClick={() => toggleSelect(item.google_place_id)}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => {}}
-                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                  />
-                  <div>
-                    <h4 style={{ fontSize: '1.1rem', color: '#fff' }}>{item.name}</h4>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>{item.category} • {item.city}</span>
+                return (
+                  <div
+                    key={item.google_place_id}
+                    className="card"
+                    style={{
+                      borderColor: isChecked ? 'var(--accent-blue)' : 'var(--border-color)',
+                      background: isChecked ? 'rgba(30, 41, 59, 0.95)' : 'var(--bg-card)',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => toggleSelect(item.google_place_id)}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => {}}
+                          style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                        />
+                        <div>
+                          <h4 style={{ fontSize: '1.1rem', color: '#fff' }}>{item.name}</h4>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>{item.category} • {item.city}</span>
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.35rem' }}>
+                        {item.is_mock && (
+                          <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.4)', fontSize: '0.68rem' }}>
+                            ⚠️ TEST DATA - NOT REAL
+                          </span>
+                        )}
+
+                        {isMissingWebsite ? (
+                          <span className="badge" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+                            <AlertTriangle size={12} /> No Website
+                          </span>
+                        ) : (
+                          <span className="badge" style={{ background: 'rgba(148, 163, 184, 0.15)', color: '#94a3b8' }}>
+                            <Globe size={12} /> Website Exists
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <MapPin size={14} color="var(--accent-blue)" /> {item.address}
+                      </div>
+
+                      {/* Direct Clickable Google Maps Link */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.2rem' }}>
+                        <a
+                          href={mapsUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ color: 'var(--accent-blue)', textDecoration: 'none', fontSize: '0.825rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontWeight: '600' }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink size={13} /> View on Google Maps (place_id: {item.google_place_id})
+                        </a>
+                      </div>
+
+                      {item.phone && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <Phone size={14} color="var(--accent-emerald)" /> {item.phone}
+                        </div>
+                      )}
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.4rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '0.4rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                          <Star size={14} color="var(--accent-amber)" fill="var(--accent-amber)" />
+                          <strong style={{ color: '#fff' }}>{item.rating}</strong> ({item.review_count} ratings)
+                        </div>
+
+                        {/* Last Fetched Timestamp */}
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                          <Clock size={11} /> Fetched: {new Date(item.fetched_at || Date.now()).toLocaleTimeString()}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                {isMissingWebsite ? (
-                  <span className="badge" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
-                    <AlertTriangle size={12} /> No Website
-                  </span>
-                ) : (
-                  <span className="badge" style={{ background: 'rgba(148, 163, 184, 0.15)', color: '#94a3b8' }}>
-                    <Globe size={12} /> Website Exists
-                  </span>
-                )}
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <MapPin size={14} color="var(--accent-blue)" /> {item.address}
-                </div>
-                {item.phone && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Phone size={14} color="var(--accent-emerald)" /> {item.phone}
-                  </div>
-                )}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Star size={14} color="var(--accent-amber)" fill="var(--accent-amber)" />
-                  <strong style={{ color: '#fff' }}>{item.rating}</strong> ({item.review_count} ratings)
-                </div>
-              </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-    </>
-  );
-})()}
+
+            {/* Collapsible Raw API Debug Panel */}
+            {rawResponse && (
+              <div className="card" style={{ marginTop: '1.5rem', background: '#090d16', border: '1px solid var(--border-color)', padding: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} onClick={() => setShowDebugConsole(!showDebugConsole)}>
+                  <span style={{ fontSize: '0.9rem', fontWeight: '700', color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Bug size={16} /> Raw Google Places API Response Console
+                  </span>
+                  <button className="btn btn-secondary btn-sm">{showDebugConsole ? 'Hide Debug JSON' : 'Show Debug JSON'}</button>
+                </div>
+
+                {showDebugConsole && (
+                  <pre style={{ marginTop: '1rem', background: '#030712', padding: '1rem', borderRadius: '6px', fontSize: '0.78rem', color: '#34d399', overflowX: 'auto', maxHeight: '300px' }}>
+                    {JSON.stringify(rawResponse, null, 2)}
+                  </pre>
+                )}
+              </div>
+            )}
+          </>
+        );
+      })()}
     </div>
   );
 }

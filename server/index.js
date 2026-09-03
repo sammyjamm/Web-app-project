@@ -14,6 +14,7 @@ app.use(express.json());
 // -------------------------------------------------------------
 app.get('/api/places/search', async (req, res) => {
   const { city = 'Near Me', category = 'Restaurant' } = req.query;
+  const fetchedAt = new Date().toISOString();
 
   const settings = db.getSettings();
   const apiKey = settings.google_places_api_key;
@@ -33,12 +34,21 @@ app.get('/api/places/search', async (req, res) => {
           city: city,
           phone: '',
           google_place_id: item.place_id,
+          google_maps_url: `https://www.google.com/maps/place/?q=place_id:${item.place_id}`,
           rating: item.rating || 4.5,
           review_count: item.user_ratings_total || 12,
-          google_website_field: null, // text search requires details call for website
-          confidence_status: 'unverified'
+          google_website_field: null,
+          confidence_status: 'unverified',
+          is_mock: false,
+          fetched_at: fetchedAt
         }));
-        return res.json({ source: 'live_google_places', results: parsed });
+        return res.json({
+          source: 'live_google_places',
+          is_mock: false,
+          fetched_at: fetchedAt,
+          raw_response: data,
+          results: parsed
+        });
       }
     } catch (err) {
       console.error('Places API fetch error:', err);
@@ -58,7 +68,6 @@ app.get('/api/places/search', async (req, res) => {
   ];
 
   const simulatedResults = sampleNames.map((name, idx) => {
-    // 60% missing website, 40% has website in initial place data
     const hasWebsiteInitially = idx % 3 === 0;
     const placeId = `place_sim_${city.toLowerCase().replace(/[^a-z]/g, '')}_${idx + 101}`;
     
@@ -69,14 +78,28 @@ app.get('/api/places/search', async (req, res) => {
       city,
       phone: `(${city.includes('Austin') ? '512' : '206'}) 555-0${120 + idx}`,
       google_place_id: placeId,
+      google_maps_url: `https://www.google.com/maps/place/?q=place_id:${placeId}`,
       rating: parseFloat((4.2 + (idx % 8) * 0.1).toFixed(1)),
       review_count: 15 + idx * 9,
       google_website_field: hasWebsiteInitially ? `http://www.${name.toLowerCase().replace(/[^a-z]/g, '')}.com` : null,
-      confidence_status: hasWebsiteInitially ? 'has_website' : 'unverified'
+      confidence_status: hasWebsiteInitially ? 'has_website' : 'unverified',
+      is_mock: true,
+      fetched_at: fetchedAt
     };
   });
 
-  res.json({ source: 'demo_simulation', results: simulatedResults });
+  res.json({
+    source: 'demo_simulation',
+    is_mock: true,
+    fetched_at: fetchedAt,
+    raw_response: {
+      status: 'OK (SIMULATED_TEST_MODE)',
+      note: 'No Places API key detected in Settings. Displaying test simulation data.',
+      query: `${category} in ${city}`,
+      results: simulatedResults
+    },
+    results: simulatedResults
+  });
 });
 
 // Import discovered places into lead database (with automatic verification pipeline)

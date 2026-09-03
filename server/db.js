@@ -147,14 +147,29 @@ class FileDatabase {
     const now = new Date().toISOString();
     let saved;
 
+    const googlePlaceId = businessData.google_place_id || `place_${Date.now()}`;
+    const mapsUrl = businessData.google_maps_url || `https://www.google.com/maps/place/?q=place_id:${googlePlaceId}`;
+    const fetchedAt = businessData.fetched_at || now;
+    const isMock = businessData.is_mock !== undefined ? businessData.is_mock : false;
+
     if (existingIndex >= 0) {
-      saved = { ...this.data.businesses[existingIndex], ...businessData, updated_at: now };
+      saved = {
+        ...this.data.businesses[existingIndex],
+        ...businessData,
+        google_maps_url: mapsUrl,
+        fetched_at: fetchedAt,
+        is_mock: isMock,
+        updated_at: now
+      };
       this.data.businesses[existingIndex] = saved;
     } else {
       saved = {
         id: businessData.id || `b_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
         created_at: now,
         updated_at: now,
+        fetched_at: fetchedAt,
+        is_mock: isMock,
+        google_maps_url: mapsUrl,
         lead_status: businessData.lead_status || 'new',
         confidence_status: businessData.confidence_status || 'unverified',
         ...businessData

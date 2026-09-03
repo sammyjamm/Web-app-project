@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   CheckCircle, Play, ShieldAlert, FileText, Phone, MapPin, 
-  Search, Filter, Plus, Calendar, Star, LayoutGrid, List, Sparkles, Globe, Trash2
+  Search, Filter, Plus, Calendar, Star, LayoutGrid, List, Sparkles, Globe, Trash2, ExternalLink, Clock
 } from 'lucide-react';
 
 export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
@@ -189,25 +189,50 @@ export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
                   </td>
                 </tr>
               ) : (
-                leads.map((lead) => (
-                  <tr key={lead.id}>
-                    <td>
-                      <div>
-                        <strong style={{ color: '#fff', fontSize: '0.95rem' }}>{lead.name}</strong>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', gap: '0.75rem', marginTop: '0.2rem' }}>
-                          <span>📍 {lead.address}, {lead.city}</span>
-                          {lead.phone && <span>📞 {lead.phone}</span>}
+                leads.map((lead) => {
+                  const mapsUrl = lead.google_maps_url || `https://www.google.com/maps/place/?q=place_id:${lead.google_place_id}`;
+                  return (
+                    <tr key={lead.id}>
+                      <td>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <strong style={{ color: '#fff', fontSize: '0.95rem' }}>{lead.name}</strong>
+                            {lead.is_mock && (
+                              <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.4)', fontSize: '0.65rem' }}>
+                                ⚠️ TEST DATA - NOT REAL
+                              </span>
+                            )}
+                          </div>
+
+                          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '0.2rem' }}>
+                            <span>📍 {lead.address}, {lead.city}</span>
+                            {lead.phone && <span>📞 {lead.phone}</span>}
+                          </div>
+
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.25rem', fontSize: '0.75rem' }}>
+                            <a
+                              href={mapsUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{ color: 'var(--accent-blue)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', fontWeight: '600' }}
+                            >
+                              <ExternalLink size={12} /> Google Maps (place_id: {lead.google_place_id})
+                            </a>
+
+                            <span style={{ color: 'var(--text-dim)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                              <Clock size={11} /> Fetched: {new Date(lead.fetched_at || lead.created_at).toLocaleTimeString()}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{lead.category}</span>
-                    </td>
-                    <td>
-                      <span className={`badge chip-${lead.confidence_status}`}>
-                        {lead.confidence_status.replace(/_/g, ' ')}
-                      </span>
-                    </td>
+                      </td>
+                      <td>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{lead.category}</span>
+                      </td>
+                      <td>
+                        <span className={`badge chip-${lead.confidence_status}`}>
+                          {lead.confidence_status.replace(/_/g, ' ')}
+                        </span>
+                      </td>
                     <td>
                       <select
                         className={`form-select badge badge-${lead.lead_status}`}
@@ -277,10 +302,9 @@ export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
                         >
                           <Trash2 size={14} />
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>

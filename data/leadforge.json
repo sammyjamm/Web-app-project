@@ -1,11 +1,62 @@
 {
   "businesses": [
     {
+      "id": "b_1788394747475_xl0cx",
+      "created_at": "2026-09-03T00:19:07.475Z",
+      "updated_at": "2026-09-03T00:19:07.478Z",
+      "lead_status": "new",
+      "confidence_status": "likely_no_website",
+      "name": "Sunrise Restaurant Solutions",
+      "category": "Restaurant",
+      "address": "198 Main Street",
+      "city": "Near Me",
+      "phone": "(206) 555-0127",
+      "google_place_id": "place_sim_nearme_108",
+      "rating": 4.9,
+      "review_count": 78,
+      "google_website_field": null,
+      "verification_notes": "Automated Verification Complete: 0 websites detected across Web Search, Social Bio, and Domain Pings. High confidence lead."
+    },
+    {
+      "id": "b_1788394747472_wzals",
+      "created_at": "2026-09-03T00:19:07.472Z",
+      "updated_at": "2026-09-03T00:19:22.379Z",
+      "lead_status": "new",
+      "confidence_status": "likely_no_website",
+      "name": "Citywide Restaurant Express",
+      "category": "Restaurant",
+      "address": "170 Main Street",
+      "city": "Near Me",
+      "phone": "(206) 555-0125",
+      "google_place_id": "place_sim_nearme_106",
+      "rating": 4.7,
+      "review_count": 60,
+      "google_website_field": null,
+      "verification_notes": "Automated Verification Complete: 0 websites detected across Web Search, Social Bio, and Domain Pings. High confidence lead."
+    },
+    {
+      "id": "b_1788394747464_zi95f",
+      "created_at": "2026-09-03T00:19:07.464Z",
+      "updated_at": "2026-09-03T00:19:07.467Z",
+      "lead_status": "new",
+      "confidence_status": "likely_no_website",
+      "name": "Pro Restaurant & Repair Co.",
+      "category": "Restaurant",
+      "address": "114 Main Street",
+      "city": "Near Me",
+      "phone": "(206) 555-0121",
+      "google_place_id": "place_sim_nearme_102",
+      "rating": 4.3,
+      "review_count": 24,
+      "google_website_field": null,
+      "verification_notes": "Automated Verification Complete: 0 websites detected across Web Search, Social Bio, and Domain Pings. High confidence lead."
+    },
+    {
       "id": "b_1788394568369_pp6sp",
       "created_at": "2026-09-03T00:16:08.369Z",
-      "updated_at": "2026-09-03T00:16:23.292Z",
+      "updated_at": "2026-09-03T00:19:07.471Z",
       "lead_status": "declined",
-      "confidence_status": "has_website",
+      "confidence_status": "likely_no_website",
       "name": "Heritage Restaurant Workshop",
       "category": "Restaurant",
       "address": "156 Main Street",
@@ -14,11 +65,204 @@
       "google_place_id": "place_sim_nearme_105",
       "rating": 4.6,
       "review_count": 51,
-      "google_website_field": "https://existing-business-website.com",
-      "verification_notes": "Website directly provided by Places API: https://existing-business-website.com"
+      "google_website_field": null,
+      "verification_notes": "Automated Verification Complete: 0 websites detected across Web Search, Social Bio, and Domain Pings. High confidence lead."
     }
   ],
-  "verification_checks": [],
+  "verification_checks": [
+    {
+      "id": "v_1788394747466_ixziq",
+      "checked_at": "2026-09-03T00:19:07.466Z",
+      "business_id": "b_1788394747464_zi95f",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Pro Restaurant & Repair Co.\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747466_haekg",
+      "checked_at": "2026-09-03T00:19:07.466Z",
+      "business_id": "b_1788394747464_zi95f",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Pro Restaurant & Repair Co.'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747467_tjbaa",
+      "checked_at": "2026-09-03T00:19:07.467Z",
+      "business_id": "b_1788394747464_zi95f",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: prorestaurantrepairco.com, prorestaurantrepairconearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747469_u02qu",
+      "checked_at": "2026-09-03T00:19:07.469Z",
+      "business_id": "b_1788394568369_pp6sp",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Heritage Restaurant Workshop\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747470_u6byy",
+      "checked_at": "2026-09-03T00:19:07.470Z",
+      "business_id": "b_1788394568369_pp6sp",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Heritage Restaurant Workshop'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747470_aigxk",
+      "checked_at": "2026-09-03T00:19:07.470Z",
+      "business_id": "b_1788394568369_pp6sp",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: heritagerestaurantworkshop.com, heritagerestaurantworkshopnearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747472_ht4ji",
+      "checked_at": "2026-09-03T00:19:07.472Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Citywide Restaurant Express\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747473_661q5",
+      "checked_at": "2026-09-03T00:19:07.473Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Citywide Restaurant Express'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747473_qi8og",
+      "checked_at": "2026-09-03T00:19:07.474Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: citywiderestaurantexpress.com, citywiderestaurantexpressnearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747476_kcs29",
+      "checked_at": "2026-09-03T00:19:07.476Z",
+      "business_id": "b_1788394747475_xl0cx",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Sunrise Restaurant Solutions\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747476_djkgl",
+      "checked_at": "2026-09-03T00:19:07.476Z",
+      "business_id": "b_1788394747475_xl0cx",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Sunrise Restaurant Solutions'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394747477_oy42x",
+      "checked_at": "2026-09-03T00:19:07.477Z",
+      "business_id": "b_1788394747475_xl0cx",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: sunriserestaurantsolutions.com, sunriserestaurantsolutionsnearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394754178_tbrjl",
+      "checked_at": "2026-09-03T00:19:14.178Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Citywide Restaurant Express\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394754178_v6p8j",
+      "checked_at": "2026-09-03T00:19:14.178Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Citywide Restaurant Express'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394754179_wq88q",
+      "checked_at": "2026-09-03T00:19:14.179Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: citywiderestaurantexpress.com, citywiderestaurantexpressnearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394754182_iml2f",
+      "checked_at": "2026-09-03T00:19:14.182Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Citywide Restaurant Express\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394754182_n2e3e",
+      "checked_at": "2026-09-03T00:19:14.182Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Citywide Restaurant Express'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394754183_z6xdm",
+      "checked_at": "2026-09-03T00:19:14.183Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: citywiderestaurantexpress.com, citywiderestaurantexpressnearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394762373_wri41",
+      "checked_at": "2026-09-03T00:19:22.373Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Citywide Restaurant Express\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394762374_hphxu",
+      "checked_at": "2026-09-03T00:19:22.374Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Citywide Restaurant Express'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394762375_2dsd6",
+      "checked_at": "2026-09-03T00:19:22.375Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: citywiderestaurantexpress.com, citywiderestaurantexpressnearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394762377_wkros",
+      "checked_at": "2026-09-03T00:19:22.377Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Citywide Restaurant Express\" Near Me'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394762378_g8lu2",
+      "checked_at": "2026-09-03T00:19:22.378Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Citywide Restaurant Express'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394762378_mgkgv",
+      "checked_at": "2026-09-03T00:19:22.378Z",
+      "business_id": "b_1788394747472_wzals",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: citywiderestaurantexpress.com, citywiderestaurantexpressnearme.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    }
+  ],
   "demos": [],
   "settings": {
     "google_places_api_key": "",
