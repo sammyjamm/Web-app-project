@@ -8,6 +8,7 @@ export function DiscoveryModule({ onLeadsImported }) {
   const [results, setResults] = useState([]);
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [importedStatus, setImportedStatus] = useState(null);
+  const [hideWithWebsite, setHideWithWebsite] = useState(true);
 
   const handleDetectLocation = () => {
     if (navigator.geolocation) {
@@ -156,30 +157,42 @@ export function DiscoveryModule({ onLeadsImported }) {
       )}
 
       {/* Results Header Actions */}
-      {results.length > 0 && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: '700' }}>Discovered Places ({results.length})</h3>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              {results.filter(r => !r.google_website_field).length} marked as missing website in Places API.
-            </span>
-          </div>
+      {results.length > 0 && (() => {
+        const displayedResults = hideWithWebsite ? results.filter(r => !r.google_website_field) : results;
+        const hiddenCount = results.length - displayedResults.length;
 
-          <button
-            onClick={handleBulkImport}
-            disabled={selectedIds.size === 0}
-            className="btn btn-success"
-          >
-            <PlusCircle size={18} /> Import {selectedIds.size} Selected Leads
-          </button>
-        </div>
-      )}
+        return (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: '700' }}>
+                  Target Leads Without Websites ({displayedResults.length})
+                </h3>
+                <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', marginTop: '0.2rem' }}>
+                  <input
+                    type="checkbox"
+                    checked={hideWithWebsite}
+                    onChange={(e) => setHideWithWebsite(e.target.checked)}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <span>Automatically hide businesses that already have a website ({hiddenCount} hidden)</span>
+                </label>
+              </div>
 
-      {/* Results Grid */}
-      <div className="grid-2">
-        {results.map((item) => {
-          const isMissingWebsite = !item.google_website_field;
-          const isChecked = selectedIds.has(item.google_place_id);
+              <button
+                onClick={handleBulkImport}
+                disabled={selectedIds.size === 0}
+                className="btn btn-success"
+              >
+                <PlusCircle size={18} /> Import {selectedIds.size} Selected Leads
+              </button>
+            </div>
+
+            {/* Results Grid */}
+            <div className="grid-2">
+              {displayedResults.map((item) => {
+                const isMissingWebsite = !item.google_website_field;
+                const isChecked = selectedIds.has(item.google_place_id);
 
           return (
             <div
@@ -232,9 +245,10 @@ export function DiscoveryModule({ onLeadsImported }) {
                 </div>
               </div>
             </div>
-          );
-        })}
-      </div>
+            </div>
+          </>
+        );
+      })()}
     </div>
   );
 }
