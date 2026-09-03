@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
-import { Search, PlusCircle, CheckCircle, AlertTriangle, Building, Globe, MapPin, Phone, Star } from 'lucide-react';
+import { Search, PlusCircle, CheckCircle, AlertTriangle, Building, Globe, MapPin, Phone, Star, Navigation } from 'lucide-react';
 
 export function DiscoveryModule({ onLeadsImported }) {
-  const [city, setCity] = useState('Austin, TX');
-  const [category, setCategory] = useState('Plumber');
+  const [city, setCity] = useState('Near Me');
+  const [category, setCategory] = useState('Restaurant');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [importedStatus, setImportedStatus] = useState(null);
+
+  const handleDetectLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setCity(`Current Area (${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)})`);
+        },
+        () => {
+          setCity('Near Me');
+        }
+      );
+    } else {
+      setCity('Near Me');
+    }
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -73,15 +88,27 @@ export function DiscoveryModule({ onLeadsImported }) {
 
         <form onSubmit={handleSearch} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '1rem', alignItems: 'end' }}>
           <div className="form-group">
-            <label className="form-label">City / Region</label>
-            <input
-              type="text"
-              className="form-input"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              placeholder="e.g. Austin, TX"
-              required
-            />
+            <label className="form-label">City / Location</label>
+            <div style={{ display: 'flex', gap: '0.4rem' }}>
+              <input
+                type="text"
+                className="form-input"
+                style={{ flex: 1 }}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                placeholder="e.g. Near Me, Current Area..."
+                required
+              />
+              <button
+                type="button"
+                className="btn btn-secondary"
+                title="Detect My Current GPS Location"
+                onClick={handleDetectLocation}
+                style={{ padding: '0.65rem', color: 'var(--accent-blue)' }}
+              >
+                <Navigation size={18} />
+              </button>
+            </div>
           </div>
 
           <div className="form-group">

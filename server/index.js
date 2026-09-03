@@ -13,7 +13,7 @@ app.use(express.json());
 // 1. Google Places Discovery & Import
 // -------------------------------------------------------------
 app.get('/api/places/search', async (req, res) => {
-  const { city = 'Austin, TX', category = 'Plumber' } = req.query;
+  const { city = 'Near Me', category = 'Restaurant' } = req.query;
 
   const settings = db.getSettings();
   const apiKey = settings.google_places_api_key;
