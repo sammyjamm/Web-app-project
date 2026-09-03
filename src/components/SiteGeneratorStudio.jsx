@@ -30,14 +30,27 @@ export function SiteGeneratorStudio({ lead, onDemoCreated }) {
 
   useEffect(() => {
     if (lead) {
+      const isFood = ['Restaurant', 'Food Truck', 'Bar & Grill', 'Bakery', 'Coffee Shop'].includes(lead.category);
+
       setConfig(prev => ({
         ...prev,
-        hero_headline: `Top Rated ${lead.category} in ${lead.city}`,
-        hero_subheadline: `Serving ${lead.city} & surrounding areas with 5-star expertise.`,
-        tagline: `Fast, Reliable & Licensed ${lead.category}`,
+        hero_headline: isFood 
+          ? `Authentic Fresh & Delicious ${lead.category} in ${lead.city}`
+          : `Top Rated ${lead.category} in ${lead.city}`,
+        hero_subheadline: isFood
+          ? `Serving handcrafted meals, daily specials, and 5-star dining experiences in ${lead.city}.`
+          : `Serving ${lead.city} & surrounding areas with 5-star expertise.`,
+        tagline: isFood ? `Fresh Ingredients • Dine-In & Takeout` : `Fast, Reliable & Licensed ${lead.category}`,
         contact_phone: lead.phone || '(512) 555-0199',
         contact_address: `${lead.address}, ${lead.city}`,
-        about_text: `${lead.name} is a premier ${lead.category.toLowerCase()} business in ${lead.city} dedicated to fast response times and 100% customer satisfaction.`
+        about_text: isFood
+          ? `${lead.name} brings delicious flavors and welcoming hospitality to ${lead.city}. Rated ${lead.rating || 4.8}/5 based on ${lead.review_count || 45}+ happy diners!`
+          : `${lead.name} is a premier ${lead.category.toLowerCase()} business in ${lead.city} dedicated to fast response times and 100% customer satisfaction.`,
+        services: isFood ? [
+          { name: 'Signature Chef Specials', desc: 'Handcrafted daily dishes prepared with fresh, locally-sourced ingredients.' },
+          { name: 'Dine-In & Online Pickup', desc: 'Fast online ordering, cozy seating, and immediate pickup options.' },
+          { name: 'Private Event Catering', desc: 'Custom party platters and full-service event catering available.' }
+        ] : prev.services
       }));
     }
   }, [lead?.id]);

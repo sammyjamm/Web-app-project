@@ -91,6 +91,7 @@ export function DiscoveryModule({ onLeadsImported }) {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
+              <option value="Restaurant">Restaurant & Dining</option>
               <option value="Plumber">Plumber</option>
               <option value="Bakery">Bakery</option>
               <option value="Auto Repair">Auto Repair</option>
@@ -99,6 +100,8 @@ export function DiscoveryModule({ onLeadsImported }) {
               <option value="Landscaper">Landscaper</option>
               <option value="Dentist">Dentist</option>
               <option value="Coffee Shop">Coffee Shop / Cafe</option>
+              <option value="Food Truck">Food Truck</option>
+              <option value="Bar & Grill">Bar & Grill</option>
             </select>
           </div>
 
