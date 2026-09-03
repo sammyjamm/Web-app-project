@@ -12,11 +12,11 @@
       "review_count": 42,
       "google_website_field": null,
       "confidence_status": "likely_no_website",
-      "verification_notes": "Checked web search & FB bio: No active website found.",
-      "lead_status": "verified",
+      "verification_notes": "Automated Verification Complete: 0 websites detected across Web Search, Social Bio, and Domain Pings. High confidence lead.",
+      "lead_status": "demo_sent",
       "follow_up_date": "2026-09-05",
       "created_at": "2026-09-03T00:06:13.367Z",
-      "updated_at": "2026-09-03T00:06:13.368Z"
+      "updated_at": "2026-09-03T00:07:46.763Z"
     },
     {
       "id": "b2",
@@ -30,11 +30,11 @@
       "review_count": 89,
       "google_website_field": null,
       "confidence_status": "likely_no_website",
-      "verification_notes": "Domain guess heritagebakery.com failed. FB has address only.",
+      "verification_notes": "Automated Verification Complete: 0 websites detected across Web Search, Social Bio, and Domain Pings. High confidence lead.",
       "lead_status": "new",
       "follow_up_date": null,
       "created_at": "2026-09-03T00:06:13.368Z",
-      "updated_at": "2026-09-03T00:06:13.368Z"
+      "updated_at": "2026-09-03T00:07:11.647Z"
     },
     {
       "id": "b3",
@@ -47,12 +47,12 @@
       "rating": 4.6,
       "review_count": 31,
       "google_website_field": null,
-      "confidence_status": "needs_review",
-      "verification_notes": "Found directory listing on Yelp, needs human verification.",
+      "confidence_status": "likely_no_website",
+      "verification_notes": "Automated Verification Complete: 0 websites detected across Web Search, Social Bio, and Domain Pings. High confidence lead.",
       "lead_status": "new",
       "follow_up_date": null,
       "created_at": "2026-09-03T00:06:13.368Z",
-      "updated_at": "2026-09-03T00:06:13.368Z"
+      "updated_at": "2026-09-03T00:07:18.119Z"
     }
   ],
   "verification_checks": [
@@ -79,9 +79,173 @@
       "result": "Pinging apexplumbing.com, apexplumbingaustin.com - HTTP HEAD connection timeout.",
       "found_url": null,
       "checked_at": "2026-09-03T00:06:13.368Z"
+    },
+    {
+      "id": "v_1788394025110_jjcov",
+      "checked_at": "2026-09-03T00:07:05.111Z",
+      "business_id": "b1",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Apex Plumbing & Rooter Services\" Austin, TX'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394025111_2ze2m",
+      "checked_at": "2026-09-03T00:07:05.111Z",
+      "business_id": "b1",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Apex Plumbing & Rooter Services'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394025112_hw35n",
+      "checked_at": "2026-09-03T00:07:05.112Z",
+      "business_id": "b1",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: apexplumbingrooterservices.com, apexplumbingrooterservicesaustintx.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394025115_xeiko",
+      "checked_at": "2026-09-03T00:07:05.115Z",
+      "business_id": "b1",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Apex Plumbing & Rooter Services\" Austin, TX'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394025116_4evbg",
+      "checked_at": "2026-09-03T00:07:05.116Z",
+      "business_id": "b1",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Apex Plumbing & Rooter Services'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394025116_ka7kf",
+      "checked_at": "2026-09-03T00:07:05.116Z",
+      "business_id": "b1",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: apexplumbingrooterservices.com, apexplumbingrooterservicesaustintx.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394031642_0pe9w",
+      "checked_at": "2026-09-03T00:07:11.642Z",
+      "business_id": "b2",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Heritage Artisan Bakery\" Austin, TX'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394031643_9wcp5",
+      "checked_at": "2026-09-03T00:07:11.643Z",
+      "business_id": "b2",
+      "check_type": "social_bio",
+      "result": "Located Facebook Page @heritageartisanbakery. Found website link in bio: http://heritageartisanbakery.site",
+      "found_url": "http://heritageartisanbakery.site"
+    },
+    {
+      "id": "v_1788394031645_k3qlk",
+      "checked_at": "2026-09-03T00:07:11.645Z",
+      "business_id": "b2",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Heritage Artisan Bakery\" Austin, TX'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394031646_oz0n3",
+      "checked_at": "2026-09-03T00:07:11.646Z",
+      "business_id": "b2",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Heritage Artisan Bakery'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394031646_53gw8",
+      "checked_at": "2026-09-03T00:07:11.646Z",
+      "business_id": "b2",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: heritageartisanbakery.com, heritageartisanbakeryaustintx.com. All requests returned 404/Connection Refused.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394038115_zyziv",
+      "checked_at": "2026-09-03T00:07:18.115Z",
+      "business_id": "b3",
+      "check_type": "web_search",
+      "result": "Search result found matching domain: http://www.lonestarautodetailers.com",
+      "found_url": "http://www.lonestarautodetailers.com"
+    },
+    {
+      "id": "v_1788394038117_th572",
+      "checked_at": "2026-09-03T00:07:18.117Z",
+      "business_id": "b3",
+      "check_type": "web_search",
+      "result": "Ran search for '\"Lone Star Auto Detailers\" Austin, TX'. Results only matched directory listings (yelp.com, facebook.com, instagram.com, yellowpages.com). No owner website found.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394038118_x10zk",
+      "checked_at": "2026-09-03T00:07:18.118Z",
+      "business_id": "b3",
+      "check_type": "social_bio",
+      "result": "Found Facebook Page for 'Lone Star Auto Detailers'. Website/bio link field is empty.",
+      "found_url": null
+    },
+    {
+      "id": "v_1788394038118_vk51g",
+      "checked_at": "2026-09-03T00:07:18.118Z",
+      "business_id": "b3",
+      "check_type": "domain_guess",
+      "result": "Tested HTTP HEAD on candidates: lonestarautodetailers.com, lonestarautodetailersaustintx.com. All requests returned 404/Connection Refused.",
+      "found_url": null
     }
   ],
-  "demos": [],
+  "demos": [
+    {
+      "id": "demo_1788394066762",
+      "created_at": "2026-09-03T00:07:46.762Z",
+      "business_id": "b1",
+      "template_used": "modern_service",
+      "preview_config": {
+        "hero_headline": "Top Rated Plumber in Austin, TX",
+        "hero_subheadline": "Serving Austin, TX & surrounding areas with 5-star expertise.",
+        "primary_color": "#3b82f6",
+        "accent_color": "#10b981",
+        "template": "modern_service",
+        "tagline": "Fast, Reliable & Licensed Plumber",
+        "about_text": "Apex Plumbing & Rooter Services is a premier plumber business in Austin, TX dedicated to fast response times and 100% customer satisfaction.",
+        "services": [
+          {
+            "name": "Emergency Service Response",
+            "desc": "Fast turnaround and immediate dispatch."
+          },
+          {
+            "name": "Full Inspection & Maintenance",
+            "desc": "Preventative care and routine checks."
+          },
+          {
+            "name": "Custom Upgrades & Installations",
+            "desc": "Modern equipment backed by full warranty."
+          }
+        ],
+        "contact_phone": "(512) 555-0198",
+        "contact_address": "1420 N Main St, Suite 102, Austin, TX",
+        "reviews": [
+          {
+            "author": "Sarah M.",
+            "text": "Outstanding work! Arrived on time and solved our issue fast.",
+            "rating": 5
+          },
+          {
+            "author": "David K.",
+            "text": "Fair pricing and super friendly service. Highly recommend!",
+            "rating": 5
+          }
+        ]
+      }
+    }
+  ],
   "settings": {
     "google_places_api_key": "",
     "custom_search_api_key": "",

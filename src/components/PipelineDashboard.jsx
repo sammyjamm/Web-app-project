@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   CheckCircle, Play, ShieldAlert, FileText, Phone, MapPin, 
-  Search, Filter, Plus, Calendar, Star, LayoutGrid, List, Sparkles 
+  Search, Filter, Plus, Calendar, Star, LayoutGrid, List, Sparkles, Globe, Trash2
 } from 'lucide-react';
 
 export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
@@ -46,6 +46,29 @@ export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
       fetchLeads();
     } catch (err) {
       console.error('Status update error:', err);
+    }
+  };
+
+  const handleFlagHasWebsite = async (id) => {
+    try {
+      await fetch(`/api/leads/${id}/flag_has_website`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ website_url: '' })
+      });
+      fetchLeads();
+    } catch (err) {
+      console.error('Flag website error:', err);
+    }
+  };
+
+  const handleDeleteLead = async (id) => {
+    if (!window.confirm('Remove this lead from your pipeline?')) return;
+    try {
+      await fetch(`/api/leads/${id}`, { method: 'DELETE' });
+      fetchLeads();
+    } catch (err) {
+      console.error('Delete lead error:', err);
     }
   };
 
@@ -220,7 +243,7 @@ export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
                       </div>
                     </td>
                     <td style={{ textAlign: 'right' }}>
-                      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                      <div style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
                         <button
                           className="btn btn-secondary btn-sm"
                           title="Run automated verification checks"
@@ -235,6 +258,24 @@ export function PipelineDashboard({ onSelectLeadForDemo, onRunVerification }) {
                           onClick={() => onSelectLeadForDemo(lead)}
                         >
                           <Sparkles size={14} /> Demo Studio
+                        </button>
+
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          style={{ color: '#fb7185', padding: '0.4rem 0.5rem' }}
+                          title="Flag as already having a website (Mark Declined)"
+                          onClick={() => handleFlagHasWebsite(lead.id)}
+                        >
+                          <Globe size={14} /> Has Website
+                        </button>
+
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          style={{ color: 'var(--accent-rose)', padding: '0.4rem 0.5rem' }}
+                          title="Delete lead from pipeline"
+                          onClick={() => handleDeleteLead(lead.id)}
+                        >
+                          <Trash2 size={14} />
                         </button>
                       </div>
                     </td>

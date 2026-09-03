@@ -141,6 +141,32 @@ app.patch('/api/leads/:id', (req, res) => {
   res.json(updated);
 });
 
+app.delete('/api/leads/:id', (req, res) => {
+  const deleted = db.deleteBusiness(req.params.id);
+  if (!deleted) {
+    return res.status(404).json({ error: 'Lead not found' });
+  }
+  res.json({ success: true });
+});
+
+app.post('/api/leads/:id/flag_has_website', (req, res) => {
+  const { website_url } = req.body;
+  const lead = db.getBusinessById(req.params.id);
+  if (!lead) {
+    return res.status(404).json({ error: 'Lead not found' });
+  }
+
+  const updated = db.saveBusiness({
+    ...lead,
+    google_website_field: website_url || 'https://existing-business-website.com',
+    confidence_status: 'has_website',
+    lead_status: 'declined',
+    verification_notes: `Manually flagged: Business already has an active website (${website_url || 'Verified by user'}).`
+  });
+
+  res.json(updated);
+});
+
 // -------------------------------------------------------------
 // 3. Verification Runner
 // -------------------------------------------------------------

@@ -179,6 +179,16 @@ class FileDatabase {
     return b;
   }
 
+  deleteBusiness(id) {
+    this.read();
+    const initialLen = this.data.businesses.length;
+    this.data.businesses = this.data.businesses.filter(b => b.id !== id);
+    this.data.verification_checks = this.data.verification_checks.filter(c => c.business_id !== id);
+    this.data.demos = this.data.demos.filter(d => d.business_id !== id);
+    this.write();
+    return this.data.businesses.length < initialLen;
+  }
+
   addVerificationCheck(check) {
     this.read();
     const newCheck = {
